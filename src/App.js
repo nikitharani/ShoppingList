@@ -42,6 +42,9 @@ const App = () => {
 
   const [isRightArrow, setisRightArrow] = useState(true);
   const [isLeftArrow, setisLeftArrow] = useState(true);
+  const [isUpArrow, setisUpArrow] = useState(true);
+  const [isDownArrow, setisDownArrow] = useState(true);
+
   const [id_selected, setid_selected] = useState(0);
 
   const [inputValue, setInputValue] = useState("");
@@ -90,10 +93,35 @@ const App = () => {
     for (i = 0; i < previous_items.length; i++) {
       previous_items[i].isSelected = false;
     }
-    setisRightArrow(true);
-    setisLeftArrow(false);
-    setid_selected(index);
 
+    if ((
+      isLeftArrow == true &&
+      isRightArrow == true &&
+      isUpArrow == true &&
+      isDownArrow == true
+	)||(
+		isLeftArrow == true &&
+		isRightArrow == false &&
+		isUpArrow == false &&
+		isDownArrow == false
+	  )
+	||(isLeftArrow == false && isRightArrow ==true && isUpArrow == true &&
+		isDownArrow == true)) {
+	// Enable/Diable left/right buttons here
+      setisRightArrow(false);
+	  setisLeftArrow(true);
+	  setisUpArrow(false);
+      setisDownArrow(false);
+
+    } else {
+	// Enable/Diable left/right buttons here
+      setisRightArrow(true);
+      setisLeftArrow(true);
+      setisUpArrow(true);
+      setisDownArrow(true);
+    }
+
+    setid_selected(index);
     setCurrentItems(newItems);
   };
 
@@ -148,10 +176,34 @@ const App = () => {
       current_items[i].isSelected = false;
     }
 
-    setisRightArrow(false);
-    setisLeftArrow(true);
-    setid_selected(index);
+    if ((
+		isLeftArrow == true &&
+		isRightArrow == true &&
+		isUpArrow == true &&
+		isDownArrow == true
+	  )||(
+		isLeftArrow == false &&
+		isRightArrow == true &&
+		isUpArrow == true &&
+		isDownArrow == true
+	  )||
+	  (isLeftArrow == true && isRightArrow ==false && 	isUpArrow == false &&
+		isDownArrow == false)) {
+	  // Enable/Diable left/right buttons here
+		setisRightArrow(true);
+		setisLeftArrow(false);
+		setisUpArrow(true);
+		setisDownArrow(true);
+  
+	  } else {
+	  // Enable/Diable left/right buttons here
+		setisRightArrow(true);
+		setisLeftArrow(true);
+		setisUpArrow(true);
+		setisDownArrow(true);
+	  }
 
+    setid_selected(index);
     setPreviousItems(newItems);
   };
 
@@ -288,7 +340,6 @@ const App = () => {
                 ) : (
                   <>
                     <div onClick={() => toggleCurrentComplete(index)}>
-						
                       <FontAwesomeIcon icon={faCircle} />
                       <span>{item.itemName}</span>
                     </div>
@@ -309,34 +360,48 @@ const App = () => {
             {" "}
             <FontAwesomeIcon icon={faRecycle} />{" "}
           </Button>
-          <Button title="Load List">
+          {/* <Button title="Load List">
             {" "}
             <FontAwesomeIcon icon={faUpload} />{" "}
-          </Button>
+          </Button> */}
         </div>
       </div>
 
       {/* my button */}
       <div className="btn-funct">
         <div className="lr">
-          <Button id="right-btn" disabled={isRightArrow}>
-            <FontAwesomeIcon
-              icon={faChevronRight}
-              onClick={() => toggleRight(id_selected)}
-            />
+          <Button
+		  	title="Move Right"
+            className="btn-sty"
+            disabled={isRightArrow}
+            onClick={() => toggleRight(id_selected)}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
           </Button>
-          <Button disabled={isLeftArrow}>
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              onClick={() => toggleLeft(id_selected)}
-            />
+          <Button
+		  title="Move Left"
+            className="btn-sty"
+            disabled={isLeftArrow}
+            onClick={() => toggleLeft(id_selected)}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
         </div>
         <div className="tb">
-          <Button disabled onClick={() => toggleUp(id_selected)}>
+          <Button
+		  title="Move Up"
+            className="btn-sty"
+            disabled={isUpArrow}
+            onClick={() => toggleUp(id_selected)}
+          >
             <FontAwesomeIcon icon={faChevronUp} />
           </Button>
-          <Button disabled onClick={() => toggleDown(id_selected)}>
+          <Button
+		  title="Move Down"
+            className="btn-sty"
+            disabled={isDownArrow}
+            onClick={() => toggleDown(id_selected)}
+          >
             <FontAwesomeIcon icon={faChevronDown} />
           </Button>
         </div>

@@ -164,10 +164,27 @@ background-color: #817c7a;
 
 }
 
-#right-btn {
+/* #right-btn {
   background-color: rgb(182, 177, 177);
-}
+} */
 
 .option-btn{
 background-color: #bee3ff;
+}
+
+/* button styling Butto */
+.btn-sty{
+  background-color:#dddddd;
+  border: 4px solid black;
+
+  height: 50px;
+  width:100px;
+}
+
+.btn-sty:disabled {
+  background: #dddddd;
+  border: 4px solid black;
+  height: 50px;
+  width:100px;
+  opacity: .5;
 }
